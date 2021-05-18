@@ -125,18 +125,19 @@ def lane_detect(im_tensor):
     for i, lane_index in index_map.items():
         lane_map[out_segmentation_np == lane_index] = classes[i] + 1
 
-    return lane_map
+    return out_segmentation_np, lane_map
 
 
 if __name__ == '__main__':
-    im = Image.open('./test.png')
+    im = Image.open('./test2.jpg')
     im = im.resize((640, 360))
     A = ToTensor()(im)
     print(A.shape)
     print(A.type())
 
-    B = lane_detect(A)
+    B1, B2 = lane_detect(A)
 
     plt.figure("test")
-    plt.imshow(B.cpu())
+    # plt.imshow(B1)
+    plt.imshow(B2.cpu())
     plt.show()
